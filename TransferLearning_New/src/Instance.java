@@ -16,6 +16,8 @@ import edu.stanford.nlp.trees.TreebankLanguagePack;
 import edu.stanford.nlp.trees.TypedDependency;
 
 public class Instance {
+	
+	
 	private String sentence;
 	private HashMap<String, String> postags;
 	private ArrayList<String> sentenceSplit;
@@ -26,17 +28,19 @@ public class Instance {
 	public Instance(String sentence, String[] keywords) {
 		this.sentence = sentence;
 		this.keywords = keywords;
+		postags = new HashMap<String, String>();
 	}
 
 	public void postag() {
-		MaxentTagger tagger = new MaxentTagger("taggers/left3words-distsim-wsj-0-18.tagger");
-		String postagged_sentence = tagger.tagString(sentence);
+	
+		String postagged_sentence = TF_NEW_Main.tagger.tagString(sentence);
+		//System.out.println(postagged_sentence);
 		for(String s : postagged_sentence.split(" ")){
 			String word = s.substring(0, s.indexOf("_"));
 			String tag = s.substring(s.indexOf("_") + 1);
 			postags.put(word, tag);
 		}
-	}
+	} 
 
 	public void generateFeature(){
 		for(String keyword : keywords){
@@ -50,31 +54,27 @@ public class Instance {
 	}
 	
 	public HashSet<String> getDependecy(String keyword) {
-		LexicalizedParser lp = LexicalizedParser.loadModel(
-				"/home/mingrui/Desktop/englishPCFG.ser.gz", "-maxLength", "80",
-				"-retainTmpSubcategories");
-		TreebankLanguagePack tlp = new PennTreebankLanguagePack();
-		// Uncomment the following line to obtain original Stanford
-		// Dependencies
-		// tlp.setGenerateOriginalDependencies(true);
-		GrammaticalStructureFactory gsf = tlp.grammaticalStructureFactory();
+		
 		String[] array = sentence.split("\\s+");
-		Tree parse = lp.apply(Sentence.toWordList(array));
-		GrammaticalStructure gs = gsf.newGrammaticalStructure(parse);
+		Tree parse = TF_NEW_Main.lp.apply(Sentence.toWordList(array));
+		GrammaticalStructure gs = TF_NEW_Main.gsf.newGrammaticalStructure(parse);
 		Collection<TypedDependency> tdl = gs.typedDependenciesCCprocessed();
 		HashSet<String> keywordsDependency = new HashSet<String>();
 		// String lemmatizedKeyword = lemmatize(keyword);
 		for (TypedDependency t : tdl) {
 			String d = t.toString();
-			String pair = d.substring(d.indexOf("(") + 1, d.indexOf("("));
-			String[] terms = pair.split(",");
-			String term1 = terms[0].trim();
-			String term2 = terms[1].trim();
+			//System.out.println(d);
+			String pair = d.substring(d.indexOf("(") + 1, d.indexOf(")"));
+			//System.out.println(pair);
+			String[] terms = pair.split(", ");
+			String term1 = terms[0].trim().substring(0,terms[0].lastIndexOf("-"));
+			String term2 = terms[1].trim().substring(0,terms[1].lastIndexOf("-") - 1);
+			
 
 			// Match keywords with the terms in the tuples, if matched, add
 			// the
 			// tuple into the arraylist
-			String[] wordsplitted = keyword.split(" ");
+			String[] wordsplitted = keyword.split("\\s+");
 			for (String key : wordsplitted) {
 				if (term1.equals(key)) {
 					String tag = postags.get(term2);
