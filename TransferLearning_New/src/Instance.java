@@ -68,7 +68,8 @@ public class Instance {
 			//System.out.println(pair);
 			String[] terms = pair.split(", ");
 			String term1 = terms[0].trim().substring(0,terms[0].lastIndexOf("-"));
-			String term2 = terms[1].trim().substring(0,terms[1].lastIndexOf("-") - 1);
+			String term2 = terms[1].trim().substring(0,terms[1].lastIndexOf("-"));
+			//System.out.println(term1 + " " + term2);
 			
 
 			// Match keywords with the terms in the tuples, if matched, add
@@ -78,11 +79,11 @@ public class Instance {
 			for (String key : wordsplitted) {
 				if (term1.equals(key)) {
 					String tag = postags.get(term2);
-					keywordsDependency.add(tag);
+					keywordsDependency.add(term1 + "_" + tag);
 				}
 				if (term2.equals(key)) {
 					String tag = postags.get(term1);
-					keywordsDependency.add(tag);
+					keywordsDependency.add(term2 + "_" + tag);
 				}
 			}
 		}
