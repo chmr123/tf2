@@ -79,10 +79,18 @@ public class Instance {
 			for (String key : wordsplitted) {
 				if (term1.equals(key)) {
 					String tag = postags.get(term2);
+					if(tag == null) continue;
+					if(tag.contains("NN")) tag = "NN";
+					if(tag.contains("VB")) tag = "VB";
+					if(tag.contains("JJ")) tag = "JJ";
 					keywordsDependency.add(term1 + "_" + tag);
 				}
 				if (term2.equals(key)) {
 					String tag = postags.get(term1);
+					if(tag == null) continue;
+					if(tag.contains("NN")) tag = "NN";
+					if(tag.contains("VB")) tag = "VB";
+					if(tag.contains("JJ")) tag = "JJ";
 					keywordsDependency.add(term2 + "_" + tag);
 				}
 			}

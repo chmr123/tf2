@@ -2,10 +2,8 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/mingruic/Desktop/Tranfer Learning/opencsv-3.5.jar"/>
-	<classpathentry kind="lib" path="/Users/mingruic/Desktop/Tranfer Learning/stanford-postagger-2015-04-20/stanford-postagger-3.5.2.jar"/>
-	<classpathentry kind="lib" path="/Users/mingruic/Desktop/Tranfer Learning/stanford-parser-full-2015-04-20/stanford-parser.jar"/>
-	<classpathentry kind="lib" path="/Users/mingruic/Desktop/pivot/stanford-corenlp-full-2015-04-20/stanford-corenlp-3.5.2.jar"/>
-	<classpathentry kind="lib" path="/Users/mingruic/Desktop/pivot/stanford-corenlp-full-2015-04-20/stanford-corenlp-3.5.2-models.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Mingrui/Desktop/NLPAPI/opencsv-3.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Mingrui/Desktop/NLPAPI/stanford-corenlp-full-2015-04-20/stanford-corenlp-3.5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Mingrui/Desktop/NLPAPI/stanford-corenlp-full-2015-04-20/stanford-corenlp-3.5.2-models.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

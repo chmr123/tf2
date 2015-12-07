@@ -28,7 +28,7 @@ import edu.stanford.nlp.util.CoreMap;
 
 public class TF_NEW_Main {
 	
-	static String root = "/Users/mingruic/Desktop/pivot/";
+	static String root = "C:\\Users\\Mingrui\\Desktop\\TransferLearning\\";
 	static Map<Integer, int[]> featureMap_train = new LinkedHashMap<Integer, int[]>();
 	static Map<Integer, int[]> featureMap_test = new LinkedHashMap<Integer, int[]>();
 	static Map<Integer, String> instanceClass_train = new LinkedHashMap<Integer, String>();
@@ -44,9 +44,10 @@ public class TF_NEW_Main {
 	//static String root = "C:\\Users\\Mingrui\\Desktop\\TranferLearning\\";
 	
 	public static void main(String[] args) throws IOException {
+		
 		props.put("annotators", "tokenize, ssplit, pos, lemma"); 
 		StanfordCoreNLP pipeline = new StanfordCoreNLP(props, false);
-		String category = "Capability";
+		String category = "Usability";
 		
 		//First while loop for training and testing files
 		CSVReader reader = new CSVReader(new FileReader(root + "filezilla.csv"));
@@ -72,6 +73,7 @@ public class TF_NEW_Main {
 				allkeywords.add(k.trim());
 				Set<String> dependency = ins.getDependecy(k.trim());
 				for(String d : dependency){
+					System.out.println(d);
 					//System.out.println(d);
 					allDependency.add(d);
 					instance_dependency.add(d);
